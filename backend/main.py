@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from fastapi.staticfiles import staticfies
+from fastapi.responeses import FileResponse
 from backend.pipeline import preprocess, postprocess
 from backend.models import run_local, compare_models
 
@@ -20,8 +22,9 @@ class Request(BaseModel):
 
 
 @app.get("/")
-def root():
-    return {"status": "running"}
+def serve_frontend():
+    return FileResponse("frontend/index.html")
+app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 
 
 @app.post("/analyze")
@@ -36,3 +39,4 @@ def analyze(req: Request):
 def compare(req: Request):
     cleaned = preprocess(req.text)
     return compare_models(cleaned)  # BUG FIX: was missing `return`
+
