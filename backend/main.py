@@ -24,7 +24,7 @@ class Request(BaseModel):
 @app.get("/")
 def serve_frontend():
     return FileResponse("frontend/index.html")
-app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 
 @app.post("/analyze")
