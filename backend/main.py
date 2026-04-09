@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from fastapi.staticfiles import staticfies
+from fastapi.staticfiles import StaticFiles
 from fastapi.responeses import FileResponse
 from backend.pipeline import preprocess, postprocess
 from backend.models import run_local, compare_models
